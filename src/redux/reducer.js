@@ -31,6 +31,52 @@ export const reducer = (state = initialState, action) => {
         [fromList]:updatedFromList,
         [toList]:updatedToList
       }
+      case "MOVE_PROGRESS":
+        const removeList = state.openToDo.filter((item)=>item.id !== action.payload.id);
+        const addList = [...state.inProgressToDo, action.payload]
+        return{
+          ...state,
+          openToDo:removeList,
+          inProgressToDo:addList
+        }
+        case "MOVE_COMPLETE":
+        const removedList = state.inProgressToDo.filter((item)=>item.id !== action.payload.id);
+        const addedList = [...state.completedToDo, action.payload]
+        return{
+          ...state,
+          inProgressToDo:removedList,
+          completedToDo:addedList
+        }
+      case "DELETE_TASK":
+        const updatedList = state[action.payload.list].filter((item)=>item.id !== action.payload.taskId);
+        return {
+        ...state,
+        [action.payload.list]:updatedList
+      }
+      case "EDIT_TASK":
+      return {
+        ...state,
+        [action.payload.list]: state[action.payload.list].map(task =>
+          task.id === action.payload.task.id ? action.payload.task : task
+        ),
+      };
+      case "REORDER_TASK":
+        const {todo, list, direction} = action.payload;
+        const todoList = [...state[list]];
+        const todoIndex = todoList.findIndex((item)=>item.id === todo.id);
+
+        if(direction === 'up' &&  todoIndex > 0){
+          [todoList[todoIndex], todoList[todoIndex-1]] = [todoList[todoIndex-1], todoList[todoIndex]];
+        }
+        else if(direction === 'down' && todoIndex < todoList.length-1){
+          [todoList[todoIndex], todoList[todoIndex+1]] = [todoList[todoIndex+1], todoList[todoIndex]];
+        }
+
+        return {
+          ...state,
+          [list] : todoList 
+        }
+        
     default:
       return state;
   }

@@ -5,4 +5,8 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   base:"/TaskMate/",
+  optimizeDeps: {
+    include: ['redux-devtools-extension'],
+    exclude: ['some-other-package-if-needed']
+  }
 })
