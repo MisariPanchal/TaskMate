@@ -63,7 +63,7 @@ const TaskList = () => {
       <div style={styles.sectionOpen} onDrop={() => handleDrop('openToDo')} onDragOver={handleDragOver}>
         <h3 style={styles.heading}>Open Tasks</h3>
         {openToDo.map((item, index) => (
-          <div key={item.id} style={styles.card} draggable onDragStart={() => handleDragStart(item, 'openToDo')}>
+          <div key={index} style={styles.card} draggable onDragStart={() => handleDragStart(item, 'openToDo')}>
             <div style={styles.buttonContainer}>
               <button style={index === 0 ?styles.disableButton:styles.upDownButton} onClick={()=>handleReorder(item, 'openToDo', 'up')}><KeyboardArrowUpIcon /></button>
               <button style={index === openToDo.length-1 ?styles.disableButton:styles.upDownButton} onClick={()=>handleReorder(item, 'openToDo', 'down')}><KeyboardArrowDownIcon /></button>
@@ -83,10 +83,10 @@ const TaskList = () => {
       <div style={styles.sectionInProgress} onDrop={() => handleDrop('inProgressToDo')} onDragOver={handleDragOver}>
         <h3 style={styles.heading}>In-Progress Tasks</h3>
         {inProgressToDo.map((item, index) => (
-          <div key={item.id} style={styles.card} draggable onDragStart={() => handleDragStart(item, 'inProgressToDo')}>
+          <div key={index} style={styles.card} draggable onDragStart={() => handleDragStart(item, 'inProgressToDo')}>
             <div style={styles.buttonContainer}>
               <button style={index === 0 ?styles.disableButton:styles.upDownButton} onClick={()=>handleReorder(item, 'inProgressToDo', 'up')}><KeyboardArrowUpIcon /></button>
-              <button style={index === openToDo.length-1 ?styles.disableButton:styles.upDownButton} onClick={()=>handleReorder(item, 'inProgressToDo', 'down')}><KeyboardArrowDownIcon /></button>
+              <button style={index === inProgressToDo.length-1 ?styles.disableButton:styles.upDownButton} onClick={()=>handleReorder(item, 'inProgressToDo', 'down')}><KeyboardArrowDownIcon /></button>
             </div>
             <div>
               <h4 style={styles.cardTitle}>{item.title}</h4>
@@ -103,10 +103,10 @@ const TaskList = () => {
       <div style={styles.sectionComplete} onDrop={() => handleDrop('completedToDo')} onDragOver={handleDragOver}>
         <h3 style={styles.heading}>Completed Tasks</h3>
         {completeToDo.map((item, index) => (
-          <div key={item.id} style={styles.card} draggable onDragStart={() => handleDragStart(item, 'completedToDo')}>
+          <div key={index} style={styles.card} draggable onDragStart={() => handleDragStart(item, 'completedToDo')}>
             <div style={styles.buttonContainer}>
               <button style={index === 0 ?styles.disableButton:styles.upDownButton} onClick={()=>handleReorder(item, 'completedToDo', 'up')}><KeyboardArrowUpIcon /></button>
-              <button style={index === openToDo.length-1 ?styles.disableButton:styles.upDownButton} onClick={()=>handleReorder(item, 'completedToDo', 'down')}><KeyboardArrowDownIcon /></button>
+              <button style={index === completeToDo.length-1 ?styles.disableButton:styles.upDownButton} onClick={()=>handleReorder(item, 'completedToDo', 'down')}><KeyboardArrowDownIcon /></button>
             </div>
             <div>
               <h4 style={styles.cardTitle}>{item.title}</h4>
@@ -175,12 +175,12 @@ const styles = {
   },
   card: {
     backgroundColor: '#e9ecef',
-    padding: '10px',
+    padding: '10px 20px',
     borderRadius: '5px',
     marginBottom: '10px',
     boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
     display: 'flex',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     alignItems: 'center',
     cursor: 'grab',
   },
